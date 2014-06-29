@@ -16,7 +16,8 @@ XBMC_DEPENDENCIES = host-gawk host-gperf host-infozip host-lzo host-sdl_image ho
 XBMC_DEPENDENCIES += boost bzip2 expat flac fontconfig freetype jasper jpeg \
 	libass libcdio libcurl libegl libfribidi libgcrypt libgles libmad libmodplug libmpeg2 \
 	libogg libplist libpng libsamplerate libungif libvorbis libxml2 lzo ncurses \
-	openssl pcre python readline sqlite taglib tiff tinyxml yajl zlib
+	openssl pcre python readline sqlite taglib tiff tinyxml yajl zlib libxslt bluez_utils \
+	curl alsa-lib alsa-utils pulseaudio libdvdnav flac libtheora mysql
 
 XBMC_CONF_ENV = \
 	PYTHON_VERSION="$(PYTHON_VERSION_MAJOR)" \
@@ -24,21 +25,22 @@ XBMC_CONF_ENV = \
 	PYTHON_CPPFLAGS="-I$(STAGING_DIR)/usr/include/python$(PYTHON_VERSION_MAJOR)" \
 	PYTHON_SITE_PKG="$(STAGING_DIR)/usr/lib/python$(PYTHON_VERSION_MAJOR)/site-packages" \
 	PYTHON_NOVERSIONCHECK="no-check" \
-	TEXTUREPACKER_NATIVE_ROOT="$(HOST_DIR)/usr"
+	TEXTUREPACKER_NATIVE_ROOT="$(HOST_DIR)/usr" \
+	PATH+="$(STAGING_DIR)/usr/bin" \
+	MYSQL_CONFIG="$(STAGING_DIR)/usr/bin" \
+	CFLAGS+="-L$(STAGING_DIR)/usr/lib/mysql/" \
+	LDFLAGS+="-L$(STAGING_DIR)/usr/lib/mysql/"
 
 XBMC_CONF_OPT +=  \
-	--disable-alsa \
 	--disable-crystalhd \
 	--disable-debug \
 	--disable-dvdcss \
 	--disable-gl \
 	--disable-hal \
 	--disable-joystick \
-	--disable-mysql \
 	--disable-openmax \
 	--disable-optical-drive \
 	--disable-projectm \
-	--disable-pulse \
 	--disable-sdl \
 	--disable-ssh \
 	--disable-vaapi \
@@ -134,7 +136,7 @@ endif
 
 # Add HOST_DIR to PATH for codegenerator.mk to find swig
 define XBMC_BOOTSTRAP
-	cd $(@D)/lib/cpluff && touch auxliary/config.rpath && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a && cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap
+	cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap && cd $(@D)/lib/cpluff && touch auxliary/config.rpath && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a 
 endef
 XBMC_PRE_CONFIGURE_HOOKS += XBMC_BOOTSTRAP
 
