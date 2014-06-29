@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XBMC_VERSION = 12.3-Frodo
+XBMC_VERSION = 13.1-Gotham
 XBMC_SITE = $(call github,xbmc,xbmc,$(XBMC_VERSION))
 XBMC_LICENSE = GPLv2
 XBMC_LICENSE_FILES = LICENSE.GPL
@@ -54,6 +54,7 @@ XBMC_DEPENDENCIES += rpi-userland
 XBMC_CONF_OPT += --with-platform=raspberry-pi --enable-player=omxplayer
 XBMC_CONF_ENV += INCLUDES="-I$(STAGING_DIR)/usr/include/interface/vcos/pthreads \
 	-I$(STAGING_DIR)/usr/include/interface/vmcs_host/linux"
+XBMC_CONF_ENV += LDFLAGS+="-lbcm_host -lvchostif"
 endif
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
@@ -133,7 +134,7 @@ endif
 
 # Add HOST_DIR to PATH for codegenerator.mk to find swig
 define XBMC_BOOTSTRAP
-	cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap
+	cd $(@D)/lib/cpluff && touch auxliary/config.rpath && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a && cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap
 endef
 XBMC_PRE_CONFIGURE_HOOKS += XBMC_BOOTSTRAP
 

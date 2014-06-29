@@ -1,0 +1,86 @@
+diff -u -r userland/host_applications/linux/apps/hello_pi/hello_fft/gpu_fft.txt userland-usr/host_applications/linux/apps/hello_pi/hello_fft/gpu_fft.txt
+--- userland/host_applications/linux/apps/hello_pi/hello_fft/gpu_fft.txt	2014-06-29 11:29:03.672478485 +1000
++++ userland-usr/host_applications/linux/apps/hello_pi/hello_fft/gpu_fft.txt	2014-06-29 11:29:48.859477563 +1000
+@@ -95,7 +95,7 @@
+ The code that produced the above accuracy and performance figures is included
+ as a demo with the latest Raspbian distro.  Build and run it as follows:
+ 
+-cd /opt/vc/src/hello_pi/hello_fft
++cd /usr/src/hello_pi/hello_fft
+ make
+ sudo mknod char_dev c 100 0
+ sudo ./hello_fft.bin 12
+diff -u -r userland/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c userland-usr/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c
+--- userland/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c	2014-06-29 11:29:03.678478485 +1000
++++ userland-usr/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c	2014-06-29 11:29:48.904477562 +1000
+@@ -455,7 +455,7 @@
+    init_textures(state);
+ 
+    //state->model = cube_wavefront();
+-   state->model = load_wavefront("/opt/vc/src/hello_pi/hello_teapot/teapot.obj.dat", NULL);
++   state->model = load_wavefront("/usr/src/hello_pi/hello_teapot/teapot.obj.dat", NULL);
+ 
+    while (!terminate)
+    {
+diff -u -r userland/host_applications/linux/apps/hello_pi/hello_teapot/video.c userland-usr/host_applications/linux/apps/hello_pi/hello_teapot/video.c
+--- userland/host_applications/linux/apps/hello_pi/hello_teapot/video.c	2014-06-29 11:29:03.678478485 +1000
++++ userland-usr/host_applications/linux/apps/hello_pi/hello_teapot/video.c	2014-06-29 11:29:48.905477562 +1000
+@@ -53,7 +53,7 @@
+ // Modified function prototype to work with pthreads
+ void *video_decode_test(void* arg)
+ {
+-   const char* filename = "/opt/vc/src/hello_pi/hello_video/test.h264";
++   const char* filename = "/usr/src/hello_pi/hello_video/test.h264";
+    eglImage = arg;
+ 
+    if (eglImage == 0)
+diff -u -r userland/host_applications/linux/apps/hello_pi/hello_videocube/video.c userland-usr/host_applications/linux/apps/hello_pi/hello_videocube/video.c
+--- userland/host_applications/linux/apps/hello_pi/hello_videocube/video.c	2014-06-29 11:29:03.757478483 +1000
++++ userland-usr/host_applications/linux/apps/hello_pi/hello_videocube/video.c	2014-06-29 11:29:49.274477554 +1000
+@@ -53,7 +53,7 @@
+ // Modified function prototype to work with pthreads
+ void *video_decode_test(void* arg)
+ {
+-   const char* filename = "/opt/vc/src/hello_pi/hello_video/test.h264";
++   const char* filename = "/usr/src/hello_pi/hello_video/test.h264";
+    eglImage = arg;
+ 
+    if (eglImage == 0)
+diff -u -r userland/host_applications/linux/apps/hello_pi/Makefile.include userland-usr/host_applications/linux/apps/hello_pi/Makefile.include
+--- userland/host_applications/linux/apps/hello_pi/Makefile.include	2014-06-29 11:29:03.671478485 +1000
++++ userland-usr/host_applications/linux/apps/hello_pi/Makefile.include	2014-06-29 11:29:48.854477563 +1000
+@@ -1,9 +1,9 @@
+ 
+ CFLAGS+=-DSTANDALONE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DTARGET_POSIX -D_LINUX -fPIC -DPIC -D_REENTRANT -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -U_FORTIFY_SOURCE -Wall -g -DHAVE_LIBOPENMAX=2 -DOMX -DOMX_SKIP64BIT -ftree-vectorize -pipe -DUSE_EXTERNAL_OMX -DHAVE_LIBBCM_HOST -DUSE_EXTERNAL_LIBBCM_HOST -DUSE_VCHIQ_ARM -Wno-psabi
+ 
+-LDFLAGS+=-L$(SDKSTAGE)/opt/vc/lib/ -lGLESv2 -lEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -L../libs/ilclient -L../libs/vgfont
++LDFLAGS+=-L$(SDKSTAGE)/usr/lib/ -lGLESv2 -lEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -L../libs/ilclient -L../libs/vgfont
+ 
+-INCLUDES+=-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux -I./ -I../libs/ilclient -I../libs/vgfont
++INCLUDES+=-I$(SDKSTAGE)/usr/include/ -I$(SDKSTAGE)/usr/include/interface/vcos/pthreads -I$(SDKSTAGE)/usr/include/interface/vmcs_host/linux -I./ -I../libs/ilclient -I../libs/vgfont
+ 
+ all: $(BIN) $(LIB)
+ 
+diff -u -r userland/host_applications/linux/apps/raspicam/gl_scenes/teapot.c userland-usr/host_applications/linux/apps/raspicam/gl_scenes/teapot.c
+--- userland/host_applications/linux/apps/raspicam/gl_scenes/teapot.c	2014-06-29 11:29:03.761478483 +1000
++++ userland-usr/host_applications/linux/apps/raspicam/gl_scenes/teapot.c	2014-06-29 11:29:49.322477553 +1000
+@@ -274,7 +274,7 @@
+ 
+ static int teapot_gl_init(RASPITEX_STATE *raspitex_state)
+ {
+-   const char *model_path = "/opt/vc/src/hello_pi/hello_teapot/teapot.obj.dat";
++   const char *model_path = "/usr/src/hello_pi/hello_teapot/teapot.obj.dat";
+    TEAPOT_STATE_T *state = NULL;
+    int rc = 0;
+ 
+diff -u -r userland/makefiles/cmake/vmcs.cmake userland-usr/makefiles/cmake/vmcs.cmake
+--- userland/makefiles/cmake/vmcs.cmake	2014-06-29 11:29:03.796478482 +1000
++++ userland-usr/makefiles/cmake/vmcs.cmake	2014-06-29 11:29:49.630477547 +1000
+@@ -10,7 +10,7 @@
+ if (ANDROID)
+   SET(VMCS_INSTALL_PREFIX "/vendor/brcm/islands" CACHE PATH "Prefix prepended to install directories" FORCE)
+ elseif(NOT DEFINED VMCS_INSTALL_PREFIX)
+-  SET(VMCS_INSTALL_PREFIX "/opt/vc" CACHE PATH "Prefix prepended to install directories" FORCE)
++  SET(VMCS_INSTALL_PREFIX "/usr" CACHE PATH "Prefix prepended to install directories" FORCE)
+ endif()
+ 

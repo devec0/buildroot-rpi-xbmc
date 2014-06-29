@@ -25,6 +25,7 @@ endif
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
 LIBCEC_CONF_OPT = --enable-rpi \
    --with-rpi-include-path=$(STAGING_DIR)/usr/include
+LIBCEC_CONF_ENV += LDFLAGS+="-lbcm_host -lvchostif"
 LIBCEC_DEPENDENCIES += rpi-userland
 else
 LIBCEC_CONF_OPT = --disable-rpi
