@@ -138,20 +138,6 @@ define XBMC_BOOTSTRAP
 endef
 XBMC_PRE_CONFIGURE_HOOKS += XBMC_BOOTSTRAP
 
-define XBMC_CLEAN_UNUSED_ADDONS
-	rm -Rf $(TARGET_DIR)/usr/share/xbmc/addons/screensaver.rsxs.plasma
-	rm -Rf $(TARGET_DIR)/usr/share/xbmc/addons/visualization.milkdrop
-	rm -Rf $(TARGET_DIR)/usr/share/xbmc/addons/visualization.projectm
-	rm -Rf $(TARGET_DIR)/usr/share/xbmc/addons/visualization.itunes
-endef
-XBMC_POST_INSTALL_TARGET_HOOKS += XBMC_CLEAN_UNUSED_ADDONS
-
-define XBMC_CLEAN_CONFLUENCE_SKIN
-	find $(TARGET_DIR)/usr/share/xbmc/addons/skin.confluence/media -name *.png -delete
-	find $(TARGET_DIR)/usr/share/xbmc/addons/skin.confluence/media -name *.jpg -delete
-endef
-XBMC_POST_INSTALL_TARGET_HOOKS += XBMC_CLEAN_CONFLUENCE_SKIN
-
 define XBMC_INSTALL_BR_WRAPPER
 	$(INSTALL) -D -m 0755 package/xbmc/br-xbmc \
 		$(TARGET_DIR)/usr/bin/br-xbmc
