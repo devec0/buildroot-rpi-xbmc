@@ -1,0 +1,22 @@
+diff -ur kmod-17/configure kmod-17-patch/configure
+--- kmod-17/configure	2014-04-07 06:52:41.236754268 +1000
++++ kmod-17-patch/configure	2014-06-29 19:35:28.905206373 +1000
+@@ -15040,7 +15040,6 @@
+ 		       -Wuninitialized \
+ 		       -fno-common \
+ 		       -fdiagnostics-show-option \
+-		       -fdiagnostics-color=auto \
+ 		       -fvisibility=hidden \
+ 		       -ffunction-sections \
+ 		       -fdata-sections; do
+diff -ur kmod-17/configure.ac kmod-17-patch/configure.ac
+--- kmod-17/configure.ac	2014-04-07 06:51:41.756754705 +1000
++++ kmod-17-patch/configure.ac	2014-06-29 19:35:18.757206580 +1000
+@@ -195,7 +195,6 @@
+ 		       -Wuninitialized \
+ 		       -fno-common \
+ 		       -fdiagnostics-show-option \
+-		       -fdiagnostics-color=auto \
+ 		       -fvisibility=hidden \
+ 		       -ffunction-sections \
+ 		       -fdata-sections])
