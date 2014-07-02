@@ -17,7 +17,7 @@ XBMC_DEPENDENCIES += boost bzip2 expat flac fontconfig freetype jasper jpeg \
 	libass libcdio libcurl libegl libfribidi libgcrypt libgles libmad libmodplug libmpeg2 \
 	libogg libplist libpng libsamplerate libungif libvorbis libxml2 lzo ncurses \
 	openssl pcre python readline sqlite taglib tiff tinyxml yajl zlib libxslt bluez_utils \
-	curl alsa-lib alsa-utils pulseaudio libdvdnav flac libtheora
+	curl alsa-lib alsa-utils pulseaudio libdvdnav flac libtheora libiconv
 
 XBMC_CONF_ENV = \
 	PYTHON_VERSION="$(PYTHON_VERSION_MAJOR)" \
@@ -32,15 +32,13 @@ XBMC_CONF_OPT +=  \
 	--disable-crystalhd \
 	--disable-mysql \
 	--disable-debug \
-	--disable-dvdcss \
 	--disable-gl \
+	--disable-ssh \
 	--disable-hal \
 	--disable-joystick \
-	--disable-openmax \
 	--disable-optical-drive \
 	--disable-projectm \
 	--disable-sdl \
-	--disable-ssh \
 	--disable-vaapi \
 	--disable-vdpau \
 	--disable-vtbdecoder \
@@ -54,7 +52,7 @@ XBMC_DEPENDENCIES += rpi-userland
 XBMC_CONF_OPT += --with-platform=raspberry-pi --enable-player=omxplayer
 XBMC_CONF_ENV += INCLUDES="-I$(STAGING_DIR)/usr/include/interface/vcos/pthreads \
 	-I$(STAGING_DIR)/usr/include/interface/vmcs_host/linux"
-XBMC_CONF_ENV += LDFLAGS+="-lbcm_host -lvchostif"
+XBMC_CONF_ENV += LDFLAGS+="-lbcm_host -lvchostif -liconv"
 endif
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
@@ -134,7 +132,7 @@ endif
 
 # Add HOST_DIR to PATH for codegenerator.mk to find swig
 define XBMC_BOOTSTRAP
-	cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap && cd $(@D)/lib/cpluff && touch auxliary/config.rpath && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a 
+	cd $(@D) && PATH=$(BR_PATH) AUTOPOINT=/bin/true ./bootstrap && cd $(@D)/lib/cpluff && touch auxliary/config.rpath && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a && cd $(@D)/lib/libdvd/libdvdcss && libtoolize --automake -f && aclocal -I m4 && autoconf -f && autoheader && automake -a
 endef
 XBMC_PRE_CONFIGURE_HOOKS += XBMC_BOOTSTRAP
 
