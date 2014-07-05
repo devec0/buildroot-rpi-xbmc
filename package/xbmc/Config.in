@@ -164,9 +164,4 @@ config BR2_PACKAGE_XBMC_WAVPACK
 	  Enable WAV input support.
 	  Select this if you want to play back WV files.
 
-comment "XBMC addons"
-
-source "package/xbmc-addon-xvdr/Config.in"
-source "package/xbmc-pvr-addons/Config.in"
-
 endif # BR2_PACKAGE_XBMC
