@@ -1,0 +1,31 @@
+menuconfig BR2_PACKAGE_SHAIRPORT
+	bool "shairport"
+	select BR2_PACKAGE_OPENSSL
+	help
+	  This program emulates an AirPort Express for the purpose of streaming music from iTunes and compatible iPods and iPhones. It implements a server for the Apple RAOP protocol. ShairPort does not support AirPlay v2 (video and photo streaming).
+
+	  http://github.com/abrasive/shairport
+
+if BR2_PACKAGE_SHAIRPORT
+
+config BR2_PACKAGE_SHAIRPORT_AVAHI
+	bool "avahi"
+	depends on !BR2_PREFER_STATIC_LIB # avahi
+	select BR2_PACKAGE_AVAHI
+	select BR2_PACKAGE_AVAHI_DAEMON
+	help
+	  Enable Avahi support.
+
+config BR2_PACKAGE_SHAIRPORT_PULSE
+	bool "shairport"
+	select BR2_PACKAGE_PULSEAUDIO
+	help
+	  Enable PulseAudio support.
+
+config BR2_PACKAGE_SHAIRPORT_AO
+	bool "libao"
+	select BR2_PACKAGE_LIBAO
+	help
+	  Enable libao support
+
+endif # BR2_PACKAGE_XBMC

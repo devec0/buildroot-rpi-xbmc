@@ -1,0 +1,12 @@
+[Unit]
+Description = Shairport
+After = network.target
+
+[Service]
+Type = simple
+ExecStart = /usr/bin/shairport -a "Radio"
+Restart = on-failure
+
+[Install]
+WantedBy = multi-user.target
+

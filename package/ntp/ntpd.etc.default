@@ -1,9 +1,9 @@
 # NTP Servers to use for ntpdate
-NTPSERVERS="pool.ntp.org"
+NTPSERVERS="au.pool.ntp.org"
 
 # Get initial time via ntpdate?
-NTPDATE=no
-NTPDATE_OPTS="-t 5"
+NTPDATE=yes
+NTPDATE_OPTS="-t 1"
 
 # Start the ntp daemon?
 NTPD=yes

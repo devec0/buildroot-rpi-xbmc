@@ -30,7 +30,6 @@ XBMC_CONF_ENV = \
 
 XBMC_CONF_OPT +=  \
 	--disable-crystalhd \
-	--disable-mysql \
 	--disable-debug \
 	--disable-gl \
 	--disable-ssh \
@@ -57,6 +56,12 @@ endif
 
 ifeq ($(BR2_PACKAGE_DBUS),y)
 XBMC_DEPENDENCIES += dbus
+endif
+
+ifeq ($(BR2_PACKAGE_MYSQL),y)
+XBMC_DEPENDENCIES += mysql
+XBMC_CONF_OPT += --enable-mysql
+XBMC_CONF_ENV += MYSQL_CONFIG=$(TARGET_DIR)/usr/bin/mysql_config
 endif
 
 ifeq ($(BR2_PACKAGE_XBMC_LIBUSB),y)
