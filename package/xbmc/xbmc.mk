@@ -70,6 +70,7 @@ ifeq ($(BR2_PACKAGE_MYSQL),y)
 XBMC_DEPENDENCIES += mysql
 XBMC_CONF_OPT += --enable-mysql
 XBMC_CONF_ENV += MYSQL_CONFIG=$(TARGET_DIR)/usr/bin/mysql_config
+endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
 XBMC_DEPENDENCIES += alsa-lib
