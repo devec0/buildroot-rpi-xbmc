@@ -4,20 +4,31 @@
 #
 ################################################################################
 
-XBMC_VERSION = 13.1-Gotham
-XBMC_SITE = $(call github,xbmc,xbmc,$(XBMC_VERSION))
+XBMC_VERSION = 13.2-Gotham
+XBMC_SOURCE = $(XBMC_VERSION).tar.gz
+XBMC_SITE = https://github.com/xbmc/xbmc/archive
 XBMC_LICENSE = GPLv2
 XBMC_LICENSE_FILES = LICENSE.GPL
 # XBMC needs host-sdl_image (and therefore host-sdl) for a host tools it builds
 # called TexturePacker. It is responsible to take all the images used in the
 # GUI and pack them in a blob.
 # http://wiki.xbmc.org/index.php?title=TexturePacker
-XBMC_DEPENDENCIES = host-gawk host-gperf host-infozip host-lzo host-sdl_image host-swig
+XBMC_DEPENDENCIES = host-gawk host-gettext host-gperf host-infozip host-lzo host-sdl_image host-swig
 XBMC_DEPENDENCIES += boost bzip2 expat flac fontconfig freetype jasper jpeg \
 	libass libcdio libcurl libegl libfribidi libgcrypt libgles libmad libmodplug libmpeg2 \
 	libogg libplist libpng libsamplerate libungif libvorbis libxml2 lzo ncurses \
 	openssl pcre python readline sqlite taglib tiff tinyxml yajl zlib libxslt bluez_utils \
 	curl alsa-lib alsa-utils pulseaudio libdvdnav flac libtheora libiconv
+
+# xbmc@i386 depends on nasm
+XBMC_DEPENDENCIES += $(if $(BR2_i386),host-nasm)
+
+# ffmpeg depends on yasm on MMX archs
+# xbmc configure passes $(BR2_ARCH) to ffmpeg configure which adds
+# yasm as dependency for x86_64, even if BR2_x86_generic=y
+ifneq ($(BR2_X86_CPU_HAS_MMX)$(BR2_x86_64),)
+XBMC_DEPENDENCIES += host-yasm
+endif
 
 XBMC_CONF_ENV = \
 	PYTHON_VERSION="$(PYTHON_VERSION_MAJOR)" \
@@ -41,9 +52,6 @@ XBMC_CONF_OPT +=  \
 	--disable-vaapi \
 	--disable-vdpau \
 	--disable-vtbdecoder \
-	--disable-x11 \
-	--disable-xrandr \
-	--enable-gles \
 	--enable-optimizations
 
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
@@ -62,6 +70,51 @@ ifeq ($(BR2_PACKAGE_MYSQL),y)
 XBMC_DEPENDENCIES += mysql
 XBMC_CONF_OPT += --enable-mysql
 XBMC_CONF_ENV += MYSQL_CONFIG=$(TARGET_DIR)/usr/bin/mysql_config
+
+ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
+XBMC_DEPENDENCIES += alsa-lib
+XBMC_CONF_OPT += --enable-alsa
+else
+XBMC_CONF_OPT += --disable-alsa
+endif
+
+ifeq ($(BR2_PACKAGE_LAME),y)
+XBMC_DEPENDENCIES += lame
+XBMC_CONF_OPT += --enable-libmp3lame
+else
+XBMC_CONF_OPT += --disable-libmp3lame
+endif
+
+# quote from xbmc/configure.in: "GLES overwrites GL if both set to yes."
+# we choose the opposite because opengl offers more features, like libva support
+ifeq ($(BR2_PACKAGE_XBMC_GL),y)
+XBMC_DEPENDENCIES += libglew libglu libgl sdl_image xlib_libX11 xlib_libXext \
+	xlib_libXmu xlib_libXrandr xlib_libXt
+XBMC_CONF_OPT += --enable-gl --enable-sdl --enable-x11 --enable-xrandr --disable-gles
+# fix rsxs compile
+# make sure target libpng-config is used, options taken from rsxs-0.9/acinclude.m4
+XBMC_CONF_ENV += \
+	jm_cv_func_gettimeofday_clobber=no \
+	mac_cv_pkg_png=$(STAGING_DIR)/usr/bin/libpng-config \
+	mac_cv_pkg_cppflags="`$(STAGING_DIR)/usr/bin/libpng-config --I_opts --cppflags`" \
+	mac_cv_pkg_cxxflags="`$(STAGING_DIR)/usr/bin/libpng-config --ccopts`" \
+	mac_cv_pkg_ldflags="`$(STAGING_DIR)/usr/bin/libpng-config --L_opts --R_opts`" \
+	mac_cv_pkg_libs="`$(STAGING_DIR)/usr/bin/libpng-config --libs`"
+XBMC_CONF_OPT += --enable-rsxs
+else
+XBMC_CONF_OPT += --disable-gl --disable-rsxs --disable-sdl --disable-x11 --disable-xrandr
+ifeq ($(BR2_PACKAGE_XBMC_EGL_GLES),y)
+XBMC_DEPENDENCIES += libegl libgles
+XBMC_CONF_OPT += --enable-gles
+else
+XBMC_CONF_OPT += --disable-gles
+endif
+endif
+
+ifeq ($(BR2_PACKAGE_XBMC_GOOM),y)
+XBMC_CONF_OPT += --enable-goom
+else
+XBMC_CONF_OPT += --disable-goom
 endif
 
 ifeq ($(BR2_PACKAGE_XBMC_LIBUSB),y)
@@ -133,6 +186,14 @@ endif
 
 ifeq ($(BR2_PACKAGE_XBMC_LIBTHEORA),y)
 XBMC_DEPENDENCIES += libtheora
+endif
+
+# xbmc needs libva & libva-glx
+ifeq ($(BR2_PACKAGE_LIBVA)$(BR2_PACKAGE_MESA3D_DRI_DRIVER),yy)
+XBMC_DEPENDENCIES += mesa3d libva
+XBMC_CONF_OPT += --enable-vaapi
+else
+XBMC_CONF_OPT += --disable-vaapi
 endif
 
 # Add HOST_DIR to PATH for codegenerator.mk to find swig

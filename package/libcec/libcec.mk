@@ -27,6 +27,7 @@ LIBCEC_CONF_OPT = --enable-rpi \
    --with-rpi-include-path=$(STAGING_DIR)/usr/include
 LIBCEC_CONF_ENV += LDFLAGS+="-lbcm_host -lvchostif"
 LIBCEC_DEPENDENCIES += rpi-userland
+LIBCEC_CONF_ENV += LIBS="-lvcos -lvchostif"
 else
 LIBCEC_CONF_OPT = --disable-rpi
 endif
