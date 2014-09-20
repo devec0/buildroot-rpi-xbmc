@@ -4,6 +4,7 @@ config BR2_PACKAGE_GST_PYTHON
 	depends on BR2_LARGEFILE
 	depends on BR2_INET_IPV6
 	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_PYGOBJECT
 	help
 	  GStreamer Python bindings.
 
