@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_MOPIDY_ALSAMIXER
+	bool "python-mopidy-alsa"
+	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_MOPIDY
+	depends on BR2_PACKAGE_PYTHON_PYALSAAUDIO
+	depends on BR2_PACKAGE_PYTHON_PYKKA
+	help
+		Mopidy extension for ALSA volume control

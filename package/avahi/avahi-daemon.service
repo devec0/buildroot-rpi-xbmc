@@ -4,9 +4,9 @@ Requires=dbus.target
 After=syslog.target network.target auditd.service
 
 [Service]
-Type=oneshot
+Type=simple
 RemainAfterExit=ye
-ExecStart=/usr/sbin/avahi-daemon -s
+ExecStart=/usr/sbin/avahi-daemon -s --no-root -D
 ExecReload=/usr/sbin/avahi-daemon -r
 ExecStop=/usr/sbin/avahi-daemon -k
 Restart=always

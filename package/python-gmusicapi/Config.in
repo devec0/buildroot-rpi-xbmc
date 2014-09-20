@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_GMUSICAPI
+	bool "python-gmusicapi"
+	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_DATEUTIL
+	depends on BR2_PACKAGE_FFMPEG_FFMPEG
+	help
+		An unofficial api for Google Play Music.

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_MOPIDY_GMUSIC
+	bool "python-mopidy-gmusic"
+	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_MOPIDY
+	depends on BR2_PACKAGE_PYTHON_GMUSICAPI
+	help
+		A mopidy extension to allow streaming from Google Play Music

@@ -43,4 +43,12 @@ else
 CONNMAN_CONF_OPT += --disable-client
 endif
 
+define CONNMAN_INSTALL_INIT_SYSTEMD
+	$(INSTALL) -D -m 644 package/connman/connman.service \
+		$(TARGET_DIR)/etc/systemd/system/connman.service
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants
+	ln -fs ../connman.service \
+		$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/connman.service
+endef
+
 $(eval $(autotools-package))

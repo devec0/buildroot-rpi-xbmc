@@ -1,0 +1,23 @@
+diff -ru gst-python-0.10.13/configure gst-python-0.10.13-b/configure
+--- gst-python-0.10.13/configure	2008-10-03 09:48:09.000000000 +1000
++++ gst-python-0.10.13-b/configure	2014-09-20 19:17:30.871541181 +1000
+@@ -21550,19 +21550,6 @@
+    { (exit 1); exit 1; }; }
+ fi
+ 
+-{ echo "$as_me:$LINENO: checking for headers required to compile python extensions" >&5
+-echo $ECHO_N "checking for headers required to compile python extensions... $ECHO_C" >&6; }
+-py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
+-py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
+-if $PYTHON-config --help 2>/dev/null; then
+-  PYTHON_INCLUDES=`$PYTHON-config --includes 2>/dev/null`
+-else
+-  PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
+-  if test "$py_prefix" != "$py_exec_prefix"; then
+-    PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
+-  fi
+-fi
+-
+ save_CPPFLAGS="$CPPFLAGS"
+ CPPFLAGS="$CPPFLAGS $PYTHON_INCLUDES"
+ cat >conftest.$ac_ext <<_ACEOF

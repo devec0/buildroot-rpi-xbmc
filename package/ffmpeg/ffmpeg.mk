@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 1.2.5
+FFMPEG_VERSION = 2.3.3
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.bz2
 FFMPEG_SITE = http://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -66,7 +66,6 @@ FFMPEG_CONF_OPT = \
 	--disable-libtheora \
 	--disable-libvo-aacenc \
 	--disable-libvo-amrwbenc \
-	--disable-vis \
 	--disable-sram \
 	--disable-symver \
 	--disable-doc

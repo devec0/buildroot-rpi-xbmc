@@ -1,0 +1,6 @@
+config BR2_PACKAGE_PYTHON_MOPIDY_MOPED
+	bool "python-mopidy-moped"
+	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_MOPIDY
+	help
+		A mopidy extension to providing a slick Web UI

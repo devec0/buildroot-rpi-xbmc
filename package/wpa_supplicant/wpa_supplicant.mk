@@ -162,4 +162,12 @@ define WPA_SUPPLICANT_INSTALL_TARGET_CMDS
 	$(WPA_SUPPLICANT_INSTALL_DBUS)
 endef
 
+define WPA_SUPPLICANT_INSTALL_INIT_SYSTEMD
+        $(INSTALL) -D -m 644 package/wpa_supplicant/wpa_supplicant.service \
+                $(TARGET_DIR)/etc/systemd/system/wpa_supplicant.service
+        mkdir -p $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants
+        ln -fs ../wpa_supplicant.service \
+                $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/wpa_supplicant.service
+endef
+
 $(eval $(generic-package))

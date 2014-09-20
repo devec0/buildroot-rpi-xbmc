@@ -1,0 +1,11 @@
+config BR2_PACKAGE_PYTHON_MOPIDY
+	bool "python-mopidy"
+	depends on BR2_PACKAGE_PYTHON
+	depends on BR2_PACKAGE_PYTHON_TORNADO
+	depends on BR2_PACKAGE_PYTHON_PYKKA
+	depends on BR2_PACKAGE_PYTHON_PYGOBJECT
+	depends on BR2_PACKAGE_GST_PLUGINS_UGLY_PLUGIN_LAME
+	depends on BR2_PACKAGE_GST_PLUGINS_UGLY_PLUGIN_MAD
+	depends on BR2_PACKAGE_GST_PLUGINS_GOOD_PLUGIN_PULSE
+	help
+		Mopidy is an extensible music server written in Python.

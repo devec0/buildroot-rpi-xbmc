@@ -1,0 +1,10 @@
+config BR2_PACKAGE_GST_PYTHON
+	bool "gst-python"
+	select BR2_PACKAGE_GST_PLUGINS_BASE
+	depends on BR2_LARGEFILE
+	depends on BR2_INET_IPV6
+	depends on BR2_PACKAGE_PYTHON
+	help
+	  GStreamer Python bindings.
+
+	  http://gstreamer.freedesktop.org/

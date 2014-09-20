@@ -17,7 +17,7 @@ config BR2_PACKAGE_SHAIRPORT_AVAHI
 	  Enable Avahi support.
 
 config BR2_PACKAGE_SHAIRPORT_PULSE
-	bool "shairport"
+	bool "pulseaudio"
 	select BR2_PACKAGE_PULSEAUDIO
 	help
 	  Enable PulseAudio support.
@@ -28,4 +28,4 @@ config BR2_PACKAGE_SHAIRPORT_AO
 	help
 	  Enable libao support
 
-endif # BR2_PACKAGE_XBMC
+endif

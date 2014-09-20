@@ -1,0 +1,9 @@
+diff -Nuar python-pykka-1.2.0/setup.py python-pykka-1.2.0b/setup.py
+--- python-pykka-1.2.0/setup.py	2013-01-19 20:48:13.000000000 +1100
++++ python-pykka-1.2.0b/setup.py	2014-08-31 18:11:18.334837192 +1000
+@@ -1,4 +1,4 @@
+-from distutils.core import setup
++from setuptools import setup
+ import re
+ 
+ 
