@@ -1,0 +1,12 @@
+diff -ur python-mutagen-1.24/setup.py python-mutagen-1.24-b/setup.py
+--- python-mutagen-1.24/setup.py	2014-08-13 07:18:04.000000000 +1000
++++ python-mutagen-1.24-b/setup.py	2014-09-22 21:38:16.494302612 +1000
+@@ -12,7 +12,7 @@
+ import subprocess
+ import tarfile
+ 
+-from distutils.core import setup, Command
++from setuptools import setup, Command
+ from distutils import dir_util
+ 
+ from distutils.command.clean import clean as distutils_clean

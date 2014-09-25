@@ -1,0 +1,9 @@
+diff -ur python-six-1.4.0/setup.py python-six-1.4.0-b/setup.py
+--- python-six-1.4.0/setup.py	2012-05-20 16:35:39.000000000 +1000
++++ python-six-1.4.0-b/setup.py	2014-09-22 21:50:21.141146844 +1000
+@@ -1,4 +1,4 @@
+-from distutils.core import setup
++from setuptools import setup
+ 
+ import six
+ 

@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PYTHON_REQUESTS
+	bool "python-requests"
+	depends on BR2_PACKAGE_PYTHON
+	help
+		Requests.

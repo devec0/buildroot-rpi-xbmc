@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PYTHON_PROBOSCIS
+	bool "python-proboscis"
+	depends on BR2_PACKAGE_PYTHON
+	help
+		Proboscis.

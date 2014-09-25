@@ -20,5 +20,10 @@ define PYTHON_MOPIDY_INSTALL_INIT_SYSTEMD
                 $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/mopidy.service
 endef
 
+define PYTHON_MOPIDY_INSTALL_INIT_SYSV
+        $(INSTALL) -D -m 644 package/python-mopidy/S70mopidy \
+                $(TARGET_DIR)/etc/init.d/S70mopidy
+endef
+
 
 $(eval $(python-package))

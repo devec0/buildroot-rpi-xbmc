@@ -22,8 +22,8 @@ SHAIRPORT_DEPENDENCIES += avahi
 endif
 
 define SHAIRPORT_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 755 package/shairport/S50shairport \
-		$(TARGET_DIR)/etc/init.d/S50shairport
+	$(INSTALL) -D -m 755 package/shairport/S60shairport \
+		$(TARGET_DIR)/etc/init.d/S60shairport
 endef
 
 define SHAIRPORT_INSTALL_INIT_SYSTEMD

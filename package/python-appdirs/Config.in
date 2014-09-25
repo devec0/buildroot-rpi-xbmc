@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PYTHON_APPDIRS
+	bool "python-appdirs"
+	depends on BR2_PACKAGE_PYTHON
+	help
+		A small Python module for determining appropriate platform-specific dirs.
